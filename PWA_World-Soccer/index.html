@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>World Soccer</title>
+  <meta name="description" content="Submission 2 PWA" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Mendaftarkan Web App Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#d32f2f" />
+
+</head>
+
+<body>
+
+
+  <!-- Navigasi -->
+  <nav class="red darken-1" role="navigation">
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo" id="logo-container">World Soccer</a>
+      <a href="#" class="sidenav-trigger" data-target="nav-mobile">☰</a>
+
+      <ul class="topnav right hide-on-med-and-down">
+
+      </ul>
+      <ul class="sidenav" id="nav-mobile"></ul>
+    </div>
+  </nav>
+  <!-- Akhir Navigasi -->
+
+  <!-- container isi -->
+  <div class="container" id="body-content">
+
+
+  </div>
+  <!-- Akhir isi -->
+
+
+  <!-- script -->
+  <script src="js/standings.js"></script>
+  <script src="js/teamFav.js"></script>
+  <script src="js/playerFav.js"></script>
+  <script src="js/matchFav.js"></script>
+  <script src="js/indexeddb.js"></script>
+  <script src="js/materialize.min.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/matches.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/database.js"></script>
+  <script src="js/idb.js"></script>
+  <script src="js/helper.js"></script>
+
+  <script>
+    // jika melakukan request api pertama
+    document.addEventListener("DOMContentLoaded", function () {
+      let page = window.location.hash.substr(1);
+    });
+  </script>
+
+  <!-- Registrasi SW-->
+  <script src="/sw-register.js"></script>
+  
+
+</body>
+
+</html>

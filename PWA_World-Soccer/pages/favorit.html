@@ -1,0 +1,61 @@
+<body>
+    <h2 style="text-align: center; color: #f6830f; font-weight: bold;">FAVORIT</h2>
+    <div class="center-align">
+        <div class="row">
+            <div class="col s4 m4">
+              <div class="card">
+                <div class="card-image" style="padding: 20px;">
+                  <img src="/image/team.png">
+                </div>
+                <div class="card-content">
+                    <a class="cyan waves-effect waves-light btn" href="#team-fav" onclick="setupDataFavHtml('tim')">Team</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col s4 m4">
+                <div class="card">
+                  <div class="card-image" style="padding: 20px;">
+                    <img src="/image/player.png">
+                  </div>
+                  <div class="card-content">
+                    <a class="cyan waves-effect waves-light btn" href="#player-fav" onclick="setupDataFavHtml('pemain')">Player</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col s4 m4">
+                <div class="card">
+                  <div class="card-image" style="padding: 20px;">
+                    <img src="/image/cup.png">
+                  </div>
+                  <div class="card-content">
+                    <a class="cyan waves-effect waves-light btn" href="#match-fav" onclick="setupDataFavHtml('pertandingan')">Match</a>
+                  </div>
+                </div>
+              </div>
+          </div>
+    </div>
+
+    <div class="row a-mt-3" id='divFavorit'>
+        <div class="col s12 m12" id="a-favorit-load">
+            <div class="center-align" id="preloader">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="gap-patch">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>

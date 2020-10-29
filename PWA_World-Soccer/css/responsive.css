@@ -1,0 +1,5 @@
+@media screen and (max-width: 500px) {
+    .blue-button {
+        max-width: 40px;
+    }
+}

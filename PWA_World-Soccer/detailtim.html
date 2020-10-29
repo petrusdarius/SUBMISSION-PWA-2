@@ -1,0 +1,209 @@
+<!-- Menyiapkan Halaman Detail Artikel -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Detail Tim</title>
+  <meta name="description" content="World Soccer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="css/materialize.min.css" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#d32f2f" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navigasi -->
+  <div class="navbar-fixed">
+    <nav class="red darken-1" role="navigation">
+      <div class="nav-wrapper container">
+        <a class="hide-on-small-only" href="./index.html" class="brand-logo" id="logo-container">Detail Club</a>
+        <a href="./index.html" class="sidenav-trigger" data-target="nav-mobile">
+          <i class="material-icons">arrow_back</i>
+        </a>
+        <ul class="topnav right hide-on-med-and-down"></ul>
+        <ul class="sidenav" id="nav-mobile"></ul>
+      </div>
+    </nav>
+  </div>
+
+  <!-- Akhir Navigasi -->
+  <div class="container" id="body-content"></div>
+  <script type="text/javascript" src="https://unpkg.com/snarkdown@1.0.2/dist/snarkdown.umd.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script type="text/javascript" src="js/api.js"></script>
+  <script type="text/javascript" src="js/teams.js"></script>
+  <script type="text/javascript" src="js/indexeddb.js"></script>
+  <script type="text/javascript" src="js/database.js"></script>
+  <script type="text/javascript" src="js/idb.js"></script>
+
+  <!-- registrasi SW -->
+  <script src="/sw-register.js"></script>
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function () {
+      let urlParams = new URLSearchParams(window.location.search);
+      let id = Number(urlParams.get("id"));
+      let isFavorit = false
+      cekData("tim_favorit", id).then((msg) => {
+        console.log("statusData: resolve = " + msg)
+        document.getElementById("iconFav").innerHTML = "favorite"
+        getSavedDataById("tim")
+        isFavorit = true
+      }).catch((msg) => {
+        console.log("statusData: reject = " + msg)
+        document.getElementById("iconFav").innerHTML = "favorite_border"
+        getIdDetailTim()
+        isFavorit = false
+      })
+
+      let iconFav = document.getElementById("iconFav");
+
+      iconFav.onclick = function () {
+        console.log("Tombol FAB di klik.");
+        if (isFavorit) {
+          deleteDatafav("tim_favorit", id);
+          isFavorit = false
+        } else {
+          item = getIdDetailTim();
+          item.then(function (tim) {
+            createDataFav("tim", tim);
+          });
+          isFavorit = true
+        }
+
+      };
+    });
+  </script>
+
+  <div class="row">
+
+    <div class="col s12 m12">
+      <div class="card">
+
+        <div id="fabFav" class="fixed-action-btn">
+          <a class="btn-floating btn-large red">
+            <i id="iconFav" class="large material-icons">favorite_border</i>
+          </a>
+        </div>
+        <div class="card-content">
+          <div style="text-align: center">
+            <img id="logoKlub" alt="data.crestUrls" align="center" width="100" height="100" vspace="25">
+            <p id="namaKlub"></p>
+          </div>
+          <hr size="12px">
+
+        </div>
+        <!-- membuat tabs di dalam card -->
+        <div class="card-tabs">
+          <ul class="tabs tabs-fixed-width">
+            <li class="tab"><a class="active" href="#overview">OVERVIEW</a></li>
+            <li class="tab"><a href="#squad">PEMAIN</a></li>
+          </ul>
+          <div class="card-content ">
+
+            <div class="center-align" id="preloader">
+
+              <div class="preloader-wrapper big active">
+                <div class="spinner-layer spinner-blue">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+
+                <div class="spinner-layer spinner-red">
+                  <div class="circle-clipper left">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="gap-patch">
+                    <div class="circle"></div>
+                  </div>
+                  <div class="circle-clipper right">
+                    <div class="circle"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- mengisi card content dengan Data -->
+            <div id="overview">
+              <!-- <thead>
+              <tbody> -->
+              <table>
+                <tbody>
+                  <tr>
+                    <td>Nama Tim :</td>
+                    <td id="name"></td>
+                  </tr>
+                  <tr>
+                    <td>Nama Panggilan :</td>
+                    <td id="shortName"></td>
+                  </tr>
+                  <tr>
+                    <td>Singkatan :</td>
+                    <td id="tla"></td>
+                  </tr>
+                  <tr>
+                    <td>Alamat :</td>
+                    <td id="address"> </td>
+                  </tr>
+                  <tr>
+                    <td>Telp :</td>
+                    <td id="phone"></td>
+                  </tr>
+                  <tr>
+                    <td>Website :</td>
+                    <td id="website"></td>
+                  </tr>
+                  <tr>
+                    <td>E-mail :</td>
+                    <td id="email"></td>
+                  </tr>
+                  <tr>
+                    <td>Didirikan :</td>
+                    <td id="founded"></td>
+                  </tr>
+                  <tr>
+                    <td>Warna Tim :</td>
+                    <td id="clubColors"></td>
+                  </tr>
+                  <tr>
+                    <td>Nama Stadion :</td>
+                    <td id="venue"></td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- </tbody>
+              </thead> -->
+            </div>
+            <div id="squad">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('ul.tabs').tabs();
+      $('ul.tabs').tabs({
+        swipeable: false
+      });
+      $('ul.tabs').tabs('select', 'tab_id');
+    });
+  </script>
+
+</body>
+
+</html>
